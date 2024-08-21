@@ -132,16 +132,7 @@ float cube_vertices[] = {
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f
 	};
 
-GLuint cube_indices[] = {
-    0, 1, 2, 2, 3, 0,  // Front face
-    4, 5, 6, 6, 7, 4,  // Back face
-    0, 1, 5, 5, 4, 0,  // Bottom face
-    2, 3, 7, 7, 6, 2,  // Top face
-    0, 3, 7, 7, 4, 0,  // Left face
-    1, 2, 6, 6, 5, 1   // Right face
-};
-
-// Shaders
+// Shaders for cube
 const char* cube_vrtx_shdr_src =
     GLH_SHADER_HEADER
     GLH_STRINGIFY(
@@ -191,7 +182,7 @@ const char* cube_frag_shdr_src =
 	}
 );
 
-// Shaders
+// Shaders for model
 const char* model_vrtx_shdr_src =
     GLH_SHADER_HEADER
     GLH_STRINGIFY(
@@ -227,8 +218,6 @@ int32_t load_mesh_data(const char* filename, MeshData* out_data);
 
 // Initialize function - called once, sets up data for rendering
 void init_cube(SceneData* scene){
-    
-
     // Initialize cube VAO
     GLuint cube_vao, cube_vbo;
     glGenVertexArrays(1, &cube_vao);
@@ -324,8 +313,9 @@ void frame(SceneData* scene, MeshData* mesh_data) {
 
     // Render the cube
     glBindVertexArray(scene->cube_vao);
-    // glBindTexture(GL_TEXTURE_2D, scene->texture);
+    glBindTexture(GL_TEXTURE_2D, scene->texture);
     glDrawArrays(GL_TRIANGLES, 0, 36);
+    glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
 }
 
@@ -340,11 +330,18 @@ void init_texture(SceneData* scene, MeshData* mesh) {
     // Set texture parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
     // Attach the texture to the FBO
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, scene->texture, 0);
+
+    // GLuint rbo;
+	// glGenRenderbuffers(1, &rbo);
+	// glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+	// glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, WINDOW_WIDTH, WINDOW_HEIGHT);
+	// glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
     // Set the viewport to the size of the texture
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -406,7 +403,6 @@ int32_t main(int32_t argc, char** argv) {
     init_model(&scene, &mesh);
     init_texture(&scene, &mesh);
     
-    // glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     // Run the rendering loop
     while (!glfwWindowShouldClose(window)) {
         frame(&scene, &mesh);
