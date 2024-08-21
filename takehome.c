@@ -81,18 +81,56 @@ typedef struct MeshData {
     int32_t normals_offset;
 } MeshData;
 
-// Cube vertex and index data
-GLfloat cube_vertices[] = {
-    // Positions        // Colors
-    -0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.5f, 0.5f, 0.5f,
-};
+float cube_vertices[] = {
+		// positions          // normals           // texture coords
+		// Back face
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+
+		// Front face
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 0.0f,
+
+		// Left face
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+
+		// Right face
+		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+
+		// Bottom face
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+
+		// Top face
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f
+	};
 
 GLuint cube_indices[] = {
     0, 1, 2, 2, 3, 0,  // Front face
@@ -107,33 +145,50 @@ GLuint cube_indices[] = {
 const char* cube_vrtx_shdr_src =
     GLH_SHADER_HEADER
     GLH_STRINGIFY(
-    layout(location = 0) in vec3 position;
-    layout(location = 1) in vec3 color;
+    // #version 330 core
+	layout (location = 0) in vec3 aPos;
+	layout (location = 1) in vec3 aNormal;
+	layout (location = 2) in vec2 aTexCoords;
 
-    uniform mat4 model;
-    uniform mat4 view;
-    uniform mat4 projection;
+	out vec3 FragPos;
+	out vec3 Normal;
+	out vec2 TexCoords;
 
-    out vec3 v_color;
+	uniform mat4 model;
+	uniform mat4 view;
+	uniform mat4 projection;
 
-    void main()
-    {
-        gl_Position = projection * view * model * vec4(position, 1.0);
-        v_color = color;
-    }
+	void main()
+	{
+		FragPos = vec3(model * vec4(aPos, 1.0));
+		Normal = mat3(transpose(inverse(model))) * aNormal;
+		TexCoords = aTexCoords;
+		gl_Position = projection * view * vec4(FragPos, 1.0);
+	}
 );
 
 const char* cube_frag_shdr_src =
     GLH_SHADER_HEADER
     GLH_STRINGIFY(
-    in vec3 v_color;
+    out vec4 FragColor;
 
-    out vec4 out_color;
+	in vec3 FragPos;
+	in vec3 Normal;
+	in vec2 TexCoords;
 
-    void main()
-    {
-        out_color = vec4(v_color, 1.0);
-    }
+	uniform sampler2D simple_texture;
+
+	void main()
+	{
+		vec3 norm = normalize(Normal);
+		vec3 lightDir = normalize(vec3(0.5, 1.0, 0.3) - FragPos);
+		float diff = max(dot(norm, lightDir), 0.0);
+		vec3 diffuse = diff * vec3(1.0, 1.0, 1.0);
+		vec3 ambient = vec3(0.2, 0.2, 0.2);
+		
+		vec4 result = texture(simple_texture, TexCoords) * vec4((ambient + diffuse), 1.0);
+		FragColor = result;
+	}
 );
 
 // Shaders
@@ -172,25 +227,27 @@ int32_t load_mesh_data(const char* filename, MeshData* out_data);
 
 // Initialize function - called once, sets up data for rendering
 void init_cube(SceneData* scene){
+    
+
     // Initialize cube VAO
-    GLuint cube_vao, cube_vbo, cube_ebo;
+    GLuint cube_vao, cube_vbo;
     glGenVertexArrays(1, &cube_vao);
     glGenBuffers(1, &cube_vbo);
-    glGenBuffers(1, &cube_ebo);
 
     glBindVertexArray(cube_vao);
 
     glBindBuffer(GL_ARRAY_BUFFER, cube_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube_ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_indices), cube_indices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
+    // Position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	// Normal attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+	// Texture coord attribute
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0); 
     glBindVertexArray(0);
@@ -208,7 +265,7 @@ void init_model(SceneData* scene, MeshData* mesh_data) {
     // Initialize VAO, VBO, EBO
     glGenVertexArrays(1, &scene->model_vao);
     GLuint vbo, ebo;
-    glGenBuffers(1, &vbo);
+    glGenBuffers(1  , &vbo);
     glGenBuffers(1, &ebo);
 
     glBindVertexArray(scene->model_vao);
@@ -265,21 +322,48 @@ void frame(SceneData* scene, MeshData* mesh_data) {
     glUniformMatrix4fv(view_loc, 1, GL_FALSE, (const GLfloat*)&view);
     glUniformMatrix4fv(proj_loc, 1, GL_FALSE, (const GLfloat*)&projection);
 
-    glBindTexture(GL_TEXTURE_2D, scene->texture);
     // Render the cube
     glBindVertexArray(scene->cube_vao);
-    glDrawElements(GL_TRIANGLES, sizeof(cube_indices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+    // glBindTexture(GL_TEXTURE_2D, scene->texture);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
+}
+
+void init_texture(SceneData* scene, MeshData* mesh) {
+    glGenFramebuffers(1, &scene->framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, scene->framebuffer);
+
+    glGenTextures(1, &scene->texture);
+    glBindTexture(GL_TEXTURE_2D, scene->texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+    // Set texture parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    // Attach the texture to the FBO
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, scene->texture, 0);
+
+    // Set the viewport to the size of the texture
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    // Clear the framebuffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Render the model
-    // glUseProgram(scene->model_program);
-    // glBindVertexArray(scene->model_vao);
-    // glDrawElements(GL_TRIANGLES, mesh_data->triangle_count * 3, GL_UNSIGNED_INT, 0);
-    // glBindVertexArray(0);
+    glClearColor(0.3f, 0.3f, 0.45f, 1.0f);
+    glUseProgram(scene->model_program);
+    glBindVertexArray(scene->model_vao);
+    glDrawElements(GL_TRIANGLES, mesh->triangle_count * 3, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+
+    // Unbind the FBO to render to the default framebuffer (the screen)
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 int32_t main(int32_t argc, char** argv) {
-
     // Initialize GLFW
     if (!glfwInit()) {
         printf("Failed to initialize GLFW! Terminating\n");
@@ -320,54 +404,25 @@ int32_t main(int32_t argc, char** argv) {
     SceneData scene = {0};
     init_cube(&scene);
     init_model(&scene, &mesh);
+    init_texture(&scene, &mesh);
     
-    glGenFramebuffers(1, &scene.framebuffer);
-    glBindFramebuffer(GL_FRAMEBUFFER, scene.framebuffer);
-
-    glGenTextures(1, &scene.texture);
-    glBindTexture(GL_TEXTURE_2D, scene.texture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-
-    // Set texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    // Attach the texture to the FBO
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, scene.texture, 0);
-
-    // Set the viewport to the size of the texture
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-    // Clear the framebuffer
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // Render the model
-    glClearColor(0.3f, 0.3f, 0.45f, 1.0f);
-    glUseProgram(scene.model_program);
-    glBindVertexArray(scene.model_vao);
-    glDrawElements(GL_TRIANGLES, mesh.triangle_count * 3, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
-
-    // Unbind the FBO to render to the default framebuffer (the screen)
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    // glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     // Run the rendering loop
     while (!glfwWindowShouldClose(window)) {
         frame(&scene, &mesh);
-
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
     // Clean up
     glDeleteVertexArrays(1, &scene.cube_vao);
+    glDeleteVertexArrays(1, &scene.model_vao);
     glDeleteProgram(scene.basic_program);
+    glDeleteProgram(scene.model_program);
+    free(mesh.vertex_data);
+    free(mesh.triangles);
     glfwDestroyWindow(window);
     glfwTerminate();
-
     return 0;
 }
 
