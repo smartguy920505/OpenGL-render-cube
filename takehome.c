@@ -136,26 +136,25 @@ float cube_vertices[] = {
 const char* cube_vrtx_shdr_src =
     GLH_SHADER_HEADER
     GLH_STRINGIFY(
-    // #version 330 core
-	layout (location = 0) in vec3 aPos;
-	layout (location = 1) in vec3 aNormal;
-	layout (location = 2) in vec2 aTexCoords;
+    layout (location = 0) in vec3 aPos;
+    layout (location = 1) in vec3 aNormal;
+    layout (location = 2) in vec2 aTexCoords;
 
-	out vec3 FragPos;
-	out vec3 Normal;
-	out vec2 TexCoords;
+    out vec3 FragPos;
+    out vec3 Normal;
+    out vec2 TexCoords;
 
-	uniform mat4 model;
-	uniform mat4 view;
-	uniform mat4 projection;
+    uniform mat4 model;
+    uniform mat4 view;
+    uniform mat4 projection;
 
-	void main()
-	{
-		FragPos = vec3(model * vec4(aPos, 1.0));
-		Normal = mat3(transpose(inverse(model))) * aNormal;
-		TexCoords = aTexCoords;
-		gl_Position = projection * view * vec4(FragPos, 1.0);
-	}
+    void main()
+    {
+        FragPos = vec3(model * vec4(aPos, 1.0));
+        Normal = mat3(transpose(inverse(model))) * aNormal;
+        TexCoords = aTexCoords;
+        gl_Position = projection * view * vec4(FragPos, 1.0);
+    }
 );
 
 const char* cube_frag_shdr_src =
@@ -163,23 +162,24 @@ const char* cube_frag_shdr_src =
     GLH_STRINGIFY(
     out vec4 FragColor;
 
-	in vec3 FragPos;
-	in vec3 Normal;
-	in vec2 TexCoords;
+    in vec3 FragPos;
+    in vec3 Normal;
+    in vec2 TexCoords;
 
-	uniform sampler2D simple_texture;
+    uniform sampler2D simple_texture;
 
-	void main()
-	{
-		vec3 norm = normalize(Normal);
-		vec3 lightDir = normalize(vec3(0.5, 1.0, 0.3) - FragPos);
-		float diff = max(dot(norm, lightDir), 0.0);
-		vec3 diffuse = diff * vec3(1.0, 1.0, 1.0);
-		vec3 ambient = vec3(0.2, 0.2, 0.2);
-		
-		vec4 result = texture(simple_texture, TexCoords) * vec4((ambient + diffuse), 1.0);
-		FragColor = result;
-	}
+    void main()
+    {
+        vec3 norm = normalize(Normal);
+        vec3 lightDir = normalize(vec3(1, 1.0, 1) - FragPos);
+        float diff = max(dot(norm, lightDir), 0.0);
+        vec3 diffuse = diff * vec3(1.0, 1.0, 1.0);
+        vec3 ambient = vec3(1.0, 1.0, 1.0);
+        
+        vec4 texColor = texture(simple_texture, TexCoords);
+        vec4 result = texColor * vec4((ambient + diffuse), 0.8);
+        FragColor = result;
+    }
 );
 
 // Shaders for model
@@ -190,11 +190,15 @@ const char* model_vrtx_shdr_src =
     layout(location = 0) in vec3 position;
     layout(location = 1) in vec3 color;
 
+    uniform mat4 model;
+    uniform mat4 view;
+    uniform mat4 projection;
+
     out vec3 v_color;
 
     void main()
     {
-        gl_Position = vec4(position, 1.0);
+        gl_Position = projection * view * model * vec4(position, 0.5);
         v_color = color;
     }
 );
@@ -219,11 +223,11 @@ int32_t load_mesh_data(const char* filename, MeshData* out_data);
 // Initialize function - called once, sets up data for rendering
 void init_cube(SceneData* scene){
     // Initialize cube VAO
-    GLuint cube_vao, cube_vbo;
-    glGenVertexArrays(1, &cube_vao);
+    GLuint cube_vbo;
+    glGenVertexArrays(1, &scene->cube_vao);
     glGenBuffers(1, &cube_vbo);
 
-    glBindVertexArray(cube_vao);
+    glBindVertexArray(scene->cube_vao);
 
     glBindBuffer(GL_ARRAY_BUFFER, cube_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
@@ -245,9 +249,6 @@ void init_cube(SceneData* scene){
     GLuint vrtx_shdr = glh_compile_shader_src(GL_VERTEX_SHADER, cube_vrtx_shdr_src);
     GLuint frag_shdr = glh_compile_shader_src(GL_FRAGMENT_SHADER, cube_frag_shdr_src);
     scene->basic_program = glh_link_program(vrtx_shdr, 0, frag_shdr);
-
-    // Store cube VAO
-    scene->cube_vao = cube_vao;
 }
 
 void init_model(SceneData* scene, MeshData* mesh_data) {
@@ -294,7 +295,7 @@ void frame(SceneData* scene, MeshData* mesh_data) {
     glUseProgram(scene->basic_program);
 
     /// Create rotation matrices
-    float angle = (float)glfwGetTime() * 0.1f; // Rotate at 0.1 radians per second
+    float angle = (float)glfwGetTime() * 0.15f; // Rotate at 0.1 radians per second
     vec3_t axis = vec3(0.7071068f, 0.7071068f, 0.0f); // Normalized axis
 
     mat4_t model = mat4_make_rotation(axis, angle);
@@ -306,10 +307,12 @@ void frame(SceneData* scene, MeshData* mesh_data) {
     GLuint model_loc = glGetUniformLocation(scene->basic_program, "model");
     GLuint view_loc = glGetUniformLocation(scene->basic_program, "view");
     GLuint proj_loc = glGetUniformLocation(scene->basic_program, "projection");
+    GLuint textureLoc = glGetUniformLocation(scene->basic_program, "simple_texture");
 
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, (const GLfloat*)&model);
     glUniformMatrix4fv(view_loc, 1, GL_FALSE, (const GLfloat*)&view);
     glUniformMatrix4fv(proj_loc, 1, GL_FALSE, (const GLfloat*)&projection);
+    glUniform1i(textureLoc, 0); // Texture unit 0
 
     // Render the cube
     glBindVertexArray(scene->cube_vao);
@@ -330,18 +333,12 @@ void init_texture(SceneData* scene, MeshData* mesh) {
     // Set texture parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    // glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     // Attach the texture to the FBO
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, scene->texture, 0);
-
-    // GLuint rbo;
-	// glGenRenderbuffers(1, &rbo);
-	// glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-	// glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
     // Set the viewport to the size of the texture
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -350,7 +347,32 @@ void init_texture(SceneData* scene, MeshData* mesh) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Render the model
-    glClearColor(0.3f, 0.3f, 0.45f, 1.0f);
+    vec3_t eye = vec3(0.0f, 0.0f, 3.0f);
+    vec3_t center = vec3(0.0f, 0.0f, 0.0f);
+    vec3_t up = vec3(0.0f, 1.0f, 0.0f);
+
+    // Use the program
+    glUseProgram(scene->model_program);
+
+    /// Create rotation matrices
+    float angle = (float)glfwGetTime() * 0.5f; // Rotate at 0.1 radians per second
+    vec3_t axis = vec3(0.7071068f, 0.7071068f, 0.0f); // Normalized axis
+
+    mat4_t model = mat4_make_rotation(axis, angle);
+    
+    mat4_t view = look_at(eye, center, up);
+    
+    mat4_t projection = perspective(deg2rad(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
+
+    GLuint model_loc = glGetUniformLocation(scene->model_program, "model");
+    GLuint view_loc = glGetUniformLocation(scene->model_program, "view");
+    GLuint proj_loc = glGetUniformLocation(scene->model_program, "projection");
+
+    glUniformMatrix4fv(model_loc, 1, GL_FALSE, (const GLfloat*)&model);
+    glUniformMatrix4fv(view_loc, 1, GL_FALSE, (const GLfloat*)&view);
+    glUniformMatrix4fv(proj_loc, 1, GL_FALSE, (const GLfloat*)&projection);
+    
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glUseProgram(scene->model_program);
     glBindVertexArray(scene->model_vao);
     glDrawElements(GL_TRIANGLES, mesh->triangle_count * 3, GL_UNSIGNED_INT, 0);
@@ -358,6 +380,49 @@ void init_texture(SceneData* scene, MeshData* mesh) {
 
     // Unbind the FBO to render to the default framebuffer (the screen)
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void render_model(SceneData* scene, MeshData* mesh) {
+    glBindFramebuffer(GL_FRAMEBUFFER, scene->framebuffer);
+    // Attach the texture to the FBO
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, scene->texture, 0);
+    // Clear the framebuffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    // Render the model
+
+    vec3_t eye = vec3(0.0f, 0.0f, 3.0f);
+    vec3_t center = vec3(0.0f, 0.0f, 0.0f);
+    vec3_t up = vec3(0.0f, 1.0f, 0.0f);
+
+    // Use the program
+    glUseProgram(scene->model_program);
+
+    /// Create rotation matrices
+    float angle = (float)glfwGetTime() * 0.5f; // Rotate at 0.1 radians per second
+    vec3_t axis = vec3(1.0f, 0.0f, 0.0f); // Normalized axis
+
+    mat4_t model = mat4_make_rotation(axis, angle);
+    
+    mat4_t view = look_at(eye, center, up);
+    
+    mat4_t projection = perspective(deg2rad(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
+
+    GLuint model_loc = glGetUniformLocation(scene->model_program, "model");
+    GLuint view_loc = glGetUniformLocation(scene->model_program, "view");
+    GLuint proj_loc = glGetUniformLocation(scene->model_program, "projection");
+
+    glUniformMatrix4fv(model_loc, 1, GL_FALSE, (const GLfloat*)&model);
+    glUniformMatrix4fv(view_loc, 1, GL_FALSE, (const GLfloat*)&view);
+    glUniformMatrix4fv(proj_loc, 1, GL_FALSE, (const GLfloat*)&projection);
+    
+    glUseProgram(scene->model_program);
+    glBindVertexArray(scene->model_vao);
+    glDrawElements(GL_TRIANGLES, mesh->triangle_count * 3, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
+    // Unbind the FBO to render to the default framebuffer (the screen)
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    
 }
 
 int32_t main(int32_t argc, char** argv) {
@@ -373,7 +438,7 @@ int32_t main(int32_t argc, char** argv) {
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_SAMPLES, 4);
-    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Rotating Cube", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Yembo", NULL, NULL);
     if (!window) {
         glfwTerminate();
         printf("Failed to create window! Terminating!\n");
@@ -387,6 +452,7 @@ int32_t main(int32_t argc, char** argv) {
         fprintf(stderr, "[ERROR] Failed to initialize OpenGL context!\n");
         return 1;
     }
+    glEnable(GL_DEPTH_TEST);
 
     // Read mesh data 
     MeshData mesh = {0};
@@ -403,8 +469,10 @@ int32_t main(int32_t argc, char** argv) {
     init_model(&scene, &mesh);
     init_texture(&scene, &mesh);
     
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     // Run the rendering loop
     while (!glfwWindowShouldClose(window)) {
+        render_model(&scene, &mesh);
         frame(&scene, &mesh);
         glfwSwapBuffers(window);
         glfwPollEvents();
