@@ -85,51 +85,51 @@ float cube_vertices[] = {
 		// positions          // normals           // texture coords
 		// Back face
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
 		// Front face
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f, 0.0f,
 
 		// Left face
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
 		// Right face
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
 		// Bottom face
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
 
 		// Top face
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
 	};
 
 // Shaders for cube
@@ -187,19 +187,26 @@ const char* model_vrtx_shdr_src =
     GLH_SHADER_HEADER
     GLH_STRINGIFY(
 
-    layout(location = 0) in vec3 position;
-    layout(location = 1) in vec3 color;
+    layout(location = 0) in vec3 aPos;   // Position attribute
+    layout(location = 1) in vec3 aNormal; // Normal attribute
 
-    uniform mat4 model;
-    uniform mat4 view;
-    uniform mat4 projection;
+    out vec3 FragPos;  // Position of the fragment in world space
+    out vec3 Normal;   // Normal of the fragment
 
-    out vec3 v_color;
+    uniform mat4 model;       // Model matrix
+    uniform mat4 view;        // View matrix
+    uniform mat4 projection;  // Projection matrix
 
     void main()
     {
-        gl_Position = projection * view * model * vec4(position, 0.5);
-        v_color = color;
+        // Calculate the position of the fragment in world space
+        FragPos = vec3(model * vec4(aPos, 1.0));
+
+        // Calculate the normal for this fragment
+        Normal = mat3(transpose(inverse(model))) * aNormal;  
+
+        // Final position of the vertex in screen space
+        gl_Position = projection * view * vec4(FragPos, 0.5); // zoom
     }
 );
 
@@ -207,13 +214,46 @@ const char* model_frag_shdr_src =
     GLH_SHADER_HEADER
     GLH_STRINGIFY(
 
-    in vec3 v_color;
+    out vec4 FragColor;
 
-    out vec4 out_color;
+    in vec3 FragPos;
+    in vec3 Normal;
+    in vec2 TexCoord;
+
+    uniform vec3 lightPos;
+    uniform vec3 viewPos;
+    uniform vec3 lightColor;
+    uniform vec3 objectColor;
+    uniform float roughness;
+    uniform float metalness;
 
     void main()
     {
-        out_color = vec4(v_color, 1.0);
+        vec3 norm = normalize(Normal);
+        vec3 viewDir = normalize(viewPos - FragPos);
+        vec3 lightDir = normalize(lightPos - FragPos);
+        vec3 halfDir = normalize(viewDir + lightDir);
+
+        // Ambient
+        vec3 ambient = 0.1 * lightColor;
+
+        // Diffuse
+        float diff = max(dot(norm, lightDir), 0.0);
+        vec3 diffuse = diff * lightColor;
+
+        // Specular (using Blinn-Phong model)
+        float spec = pow(max(dot(norm, halfDir), 0.0), 32.0);
+        vec3 specular = spec * lightColor;
+
+        // Apply roughness and metalness (Simple PBR approximation)
+        vec3 albedo = objectColor * (1.0 - metalness);
+        vec3 ambientColor = ambient * albedo;
+        vec3 diffuseColor = diffuse * albedo;
+        vec3 specularColor = specular * metalness;
+
+        // Final color
+        vec3 result = ambientColor + diffuseColor + specularColor;
+        FragColor = vec4(result, 1.0);
     }
 );
 
@@ -255,7 +295,7 @@ void init_model(SceneData* scene, MeshData* mesh_data) {
     // Initialize VAO, VBO, EBO
     glGenVertexArrays(1, &scene->model_vao);
     GLuint vbo, ebo;
-    glGenBuffers(1  , &vbo);
+    glGenBuffers(1, &vbo);
     glGenBuffers(1, &ebo);
 
     glBindVertexArray(scene->model_vao);
@@ -297,11 +337,8 @@ void frame(SceneData* scene, MeshData* mesh_data) {
     /// Create rotation matrices
     float angle = (float)glfwGetTime() * 0.15f; // Rotate at 0.1 radians per second
     vec3_t axis = vec3(0.7071068f, 0.7071068f, 0.0f); // Normalized axis
-
     mat4_t model = mat4_make_rotation(axis, angle);
-    
     mat4_t view = look_at(eye, center, up);
-    
     mat4_t projection = perspective(deg2rad(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
 
     GLuint model_loc = glGetUniformLocation(scene->basic_program, "model");
@@ -322,6 +359,24 @@ void frame(SceneData* scene, MeshData* mesh_data) {
     glBindVertexArray(0);
 }
 
+void set_texture(SceneData* scene) {
+    // Set up light properties
+    vec3_t lightPos = vec3(0.0f, 1.0f, 2.0f);
+    vec3_t lightColor = vec3(1.0f, 1.0f, 1.0f);
+    vec3_t objectColor = vec3(0.6f, 1.0f, 0.3f);
+    float ambientStrength = 0.1f;
+    float roughness = 0.5f;  // Example roughness
+    float metalness = 0.5f;  // Example metalness
+    
+    // Pass light properties to the fragment shader
+    glUniform3fv(glGetUniformLocation(scene->model_program, "lightPos"), 1, (const GLfloat*)&lightPos);
+    glUniform3fv(glGetUniformLocation(scene->model_program, "lightColor"), 1, (const GLfloat*)&lightColor);
+    glUniform3fv(glGetUniformLocation(scene->model_program, "objectColor"), 1, (const GLfloat*)&objectColor);
+    glUniform1f(glGetUniformLocation(scene->model_program, "ambientStrength"), ambientStrength);
+    glUniform1f(glGetUniformLocation(scene->model_program, "metalness"), roughness);
+    glUniform1f(glGetUniformLocation(scene->model_program, "roughness"), metalness);
+}
+
 void init_texture(SceneData* scene, MeshData* mesh) {
     glGenFramebuffers(1, &scene->framebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, scene->framebuffer);
@@ -340,6 +395,18 @@ void init_texture(SceneData* scene, MeshData* mesh) {
     // Attach the texture to the FBO
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, scene->texture, 0);
 
+    // Create a depth buffer
+    GLuint depth_buffer;
+    glGenRenderbuffers(1, &depth_buffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, depth_buffer);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WINDOW_WIDTH, WINDOW_HEIGHT);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth_buffer);
+
+    // Check if framebuffer is complete
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        fprintf(stderr, "Framebuffer is not complete!\n");
+    }
+    
     // Set the viewport to the size of the texture
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -357,11 +424,8 @@ void init_texture(SceneData* scene, MeshData* mesh) {
     /// Create rotation matrices
     float angle = (float)glfwGetTime() * 0.5f; // Rotate at 0.1 radians per second
     vec3_t axis = vec3(0.7071068f, 0.7071068f, 0.0f); // Normalized axis
-
     mat4_t model = mat4_make_rotation(axis, angle);
-    
     mat4_t view = look_at(eye, center, up);
-    
     mat4_t projection = perspective(deg2rad(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
 
     GLuint model_loc = glGetUniformLocation(scene->model_program, "model");
@@ -374,12 +438,17 @@ void init_texture(SceneData* scene, MeshData* mesh) {
     
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glUseProgram(scene->model_program);
+
+    set_texture(scene);
+
     glBindVertexArray(scene->model_vao);
     glDrawElements(GL_TRIANGLES, mesh->triangle_count * 3, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 
     // Unbind the FBO to render to the default framebuffer (the screen)
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    // Optionally disable face culling if needed for other objects
 }
 
 void render_model(SceneData* scene, MeshData* mesh) {
@@ -415,8 +484,9 @@ void render_model(SceneData* scene, MeshData* mesh) {
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, (const GLfloat*)&model);
     glUniformMatrix4fv(view_loc, 1, GL_FALSE, (const GLfloat*)&view);
     glUniformMatrix4fv(proj_loc, 1, GL_FALSE, (const GLfloat*)&projection);
-    
-    glUseProgram(scene->model_program);
+
+    set_texture(scene);
+
     glBindVertexArray(scene->model_vao);
     glDrawElements(GL_TRIANGLES, mesh->triangle_count * 3, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
@@ -452,7 +522,14 @@ int32_t main(int32_t argc, char** argv) {
         fprintf(stderr, "[ERROR] Failed to initialize OpenGL context!\n");
         return 1;
     }
+    // Enable depth testing for proper 3D rendering
     glEnable(GL_DEPTH_TEST);
+    // glDepthFunc(GL_LESS);
+
+    // Enable back-face culling
+    // glEnable(GL_CULL_FACE);   // Enable face culling
+    // glCullFace(GL_BACK);      // Cull back faces
+    // glFrontFace(GL_COW);      // Use counter-clockwise winding order for front faces
 
     // Read mesh data 
     MeshData mesh = {0};
