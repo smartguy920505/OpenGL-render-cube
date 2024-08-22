@@ -206,7 +206,7 @@ const char* model_vrtx_shdr_src =
         Normal = mat3(transpose(inverse(model))) * aNormal;  
 
         // Final position of the vertex in screen space
-        gl_Position = projection * view * vec4(FragPos, 0.5); // zoom
+        gl_Position = projection * view * vec4(FragPos, 0.4); // zoom
     }
 );
 
@@ -242,7 +242,7 @@ const char* model_frag_shdr_src =
         vec3 diffuse = diff * lightColor;
 
         // Specular (using Blinn-Phong model)
-        float spec = pow(max(dot(norm, halfDir), 0.0), 32.0);
+        float spec = pow(max(dot(norm, halfDir), 0.5), 64.0);
         vec3 specular = spec * lightColor;
 
         // Apply roughness and metalness (Simple PBR approximation)
@@ -364,7 +364,7 @@ void set_texture(SceneData* scene) {
     vec3_t lightPos = vec3(0.0f, 1.0f, 2.0f);
     vec3_t lightColor = vec3(1.0f, 1.0f, 1.0f);
     vec3_t objectColor = vec3(0.6f, 1.0f, 0.3f);
-    float ambientStrength = 0.1f;
+    float ambientStrength = 0.5f;
     float roughness = 0.5f;  // Example roughness
     float metalness = 0.5f;  // Example metalness
     
@@ -524,12 +524,6 @@ int32_t main(int32_t argc, char** argv) {
     }
     // Enable depth testing for proper 3D rendering
     glEnable(GL_DEPTH_TEST);
-    // glDepthFunc(GL_LESS);
-
-    // Enable back-face culling
-    // glEnable(GL_CULL_FACE);   // Enable face culling
-    // glCullFace(GL_BACK);      // Cull back faces
-    // glFrontFace(GL_COW);      // Use counter-clockwise winding order for front faces
 
     // Read mesh data 
     MeshData mesh = {0};
